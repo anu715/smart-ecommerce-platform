@@ -11,7 +11,7 @@ function Cart() {
     const loadCart = () => {
 
         axios
-            .get(`http://localhost:8080/api/cart/${userEmail}`)
+            .get(`https://smart-ecommerce-platform-zj7d.onrender.com/api/cart/${userEmail}`)
             .then((response) => {
                 setCartItems(response.data);
             });
@@ -23,7 +23,7 @@ function Cart() {
 
     const removeItem = (id) => {
         axios
-            .delete(`http://localhost:8080/api/cart/delete/${id}`)
+            .delete(`https://smart-ecommerce-platform-zj7d.onrender.com/api/cart/delete/${id}`)
             .then(() => {
                 loadCart();
             });
@@ -33,7 +33,7 @@ function Cart() {
 
         axios
             .post(
-                `http://localhost:8080/api/payment/pay?email=${userEmail}&amount=${totalAmount}`
+                `https://smart-ecommerce-platform-zj7d.onrender.com/api/payment/pay?email=${userEmail}&amount=${totalAmount}`
             )
             .then((paymentResponse) => {
 
@@ -43,7 +43,7 @@ function Cart() {
                 );
 
                 return axios.post(
-                    `http://localhost:8080/api/orders/place?email=${userEmail}`
+                    `https://smart-ecommerce-platform-zj7d.onrender.com/api/orders/place?email=${userEmail}`
                 );
             })
             .then(() => {

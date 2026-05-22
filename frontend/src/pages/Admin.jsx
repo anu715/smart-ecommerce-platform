@@ -25,26 +25,27 @@ function Admin() {
 
     const loadProducts = () => {
         axios
-            .get("http://localhost:8080/api/products/page?page=0&size=20")
+            .get("https://smart-ecommerce-platform-zj7d.onrender.com/api/products/page?page=0&size=20")
             .then((response) => {
                 setProducts(response.data.content);
             });
     };
+
     const loadStats = () => {
         axios
-            .get("http://localhost:8080/api/admin/stats")
+            .get("https://smart-ecommerce-platform-zj7d.onrender.com/api/admin/stats")
             .then((response) => {
                 setStats(response.data);
             });
     };
+
     const loadRecentOrders = () => {
         axios
-            .get("http://localhost:8080/api/orders/recent")
+            .get("https://smart-ecommerce-platform-zj7d.onrender.com/api/orders/recent")
             .then((response) => {
                 setRecentOrders(response.data);
             });
     };
-
     useEffect(() => {
         loadProducts();
         loadStats();
@@ -104,7 +105,7 @@ function Admin() {
     const updateProduct = async () => {
         try {
             await axios.put(
-                `http://localhost:8080/api/products/update/${editingId}`,
+                `https://smart-ecommerce-platform-zj7d.onrender.com/api/products/update/${editingId}`,
                 product
             );
 
@@ -121,7 +122,7 @@ function Admin() {
 
     const deleteProduct = async (id) => {
         try {
-            await axios.delete(`http://localhost:8080/api/products/delete/${id}`);
+            await axios.delete(`https://smart-ecommerce-platform-zj7d.onrender.com/api/products/delete/${id}`)
 
             alert("Product deleted");
 
@@ -136,7 +137,7 @@ function Admin() {
     const updateOrderStatus = async (id, status) => {
         try {
             await axios.put(
-                `http://localhost:8080/api/orders/status/${id}?status=${status}`
+                `https://smart-ecommerce-platform-zj7d.onrender.com/api/orders/status/${id}?status=${status}`
             );
 
             alert("Order status updated");

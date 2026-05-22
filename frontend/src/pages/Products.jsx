@@ -9,7 +9,7 @@ function Products() {
 
     const loadProducts = () => {
         axios
-            .get("http://localhost:8080/api/products/page?page=0&size=8")
+            .get("https://smart-ecommerce-platform-zj7d.onrender.com/api/products/page?page=0&size=8")
             .then((response) => {
                 setProducts(response.data.content);
             });
@@ -21,7 +21,7 @@ function Products() {
 
     const searchProducts = () => {
         axios
-            .get(`http://localhost:8080/api/products/search?name=${searchName}`)
+            .get(`https://smart-ecommerce-platform-zj7d.onrender.com/api/products/search?name=${searchName}`)
             .then((response) => {
                 setProducts(response.data);
             });
@@ -29,7 +29,7 @@ function Products() {
 
     const filterByCategory = () => {
         axios
-            .get(`http://localhost:8080/api/products/category?category=${category}`)
+            .get(`https://smart-ecommerce-platform-zj7d.onrender.com/api/products/category?category=${category}`)
             .then((response) => {
                 setProducts(response.data);
             });
@@ -37,7 +37,7 @@ function Products() {
 
     const addToCart = async (product) => {
         try {
-            await axios.post("http://localhost:8080/api/cart/add", {
+            await axios.post("https://smart-ecommerce-platform-zj7d.onrender.com/api/cart/add", {
                 userEmail: localStorage.getItem("email"),
                 productId: product.id,
                 productName: product.name,

@@ -7,7 +7,7 @@ function Login() {
 
     const handleLogin = () => {
         axios
-            .post("http://localhost:8080/api/auth/login", {
+            .post("https://smart-ecommerce-platform-zj7d.onrender.com/api/auth/login", {
                 email,
                 password
             })

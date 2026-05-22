@@ -10,7 +10,7 @@ function AdminLogin() {
 
         axios
             .post(
-                "http://localhost:8080/api/auth/login",
+                "https://smart-ecommerce-platform-zj7d.onrender.com/api/auth/login",
                 {
                     email,
                     password

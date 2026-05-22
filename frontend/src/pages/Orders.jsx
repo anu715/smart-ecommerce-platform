@@ -11,7 +11,7 @@ function Orders() {
     useEffect(() => {
 
         axios
-            .get(`http://localhost:8080/api/orders/${userEmail}`)
+            .get(`https://smart-ecommerce-platform-zj7d.onrender.com/api/orders/${userEmail}`)
             .then((response) => {
                 setOrders(response.data);
             });

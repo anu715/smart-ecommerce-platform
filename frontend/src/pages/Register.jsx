@@ -10,7 +10,7 @@ function Register() {
     const handleRegister = () => {
 
         axios
-            .post("http://localhost:8080/api/auth/register", {
+            .post("https://smart-ecommerce-platform-zj7d.onrender.com/api/auth/register", {
                 name,
                 email,
                 password
