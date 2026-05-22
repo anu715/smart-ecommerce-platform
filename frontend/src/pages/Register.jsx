@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 function Register() {
 
@@ -9,8 +9,8 @@ function Register() {
 
     const handleRegister = () => {
 
-        axios
-            .post("https://smart-ecommerce-platform-zj7d.onrender.com/api/auth/register", {
+        api
+            .post("/api/auth/register", {
                 name,
                 email,
                 password

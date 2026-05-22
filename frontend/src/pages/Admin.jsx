@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 function Admin() {
 
@@ -24,57 +24,39 @@ function Admin() {
     });
 
     const loadProducts = () => {
-        axios
-            .get("https://smart-ecommerce-platform-zj7d.onrender.com/api/products/page?page=0&size=20")
+        api
+            .get("/api/products/page?page=0&size=20")
             .then((response) => {
                 setProducts(response.data.content);
             });
     };
 
     const loadStats = () => {
-        axios
-            .get("https://smart-ecommerce-platform-zj7d.onrender.com/api/admin/stats")
+        api
+            .get("/api/admin/stats")
             .then((response) => {
                 setStats(response.data);
             });
     };
 
     const loadRecentOrders = () => {
-        axios
-            .get("https://smart-ecommerce-platform-zj7d.onrender.com/api/orders/recent")
+        api
+            .get("/api/orders/recent")
             .then((response) => {
                 setRecentOrders(response.data);
             });
     };
+
     useEffect(() => {
         loadProducts();
         loadStats();
         loadRecentOrders();
     }, []);
 
-    const handleChange = (e) => {
-        setProduct({
-            ...product,
-            [e.target.name]: e.target.value
-        });
-    };
-
-    const resetForm = () => {
-        setProduct({
-            name: "",
-            category: "",
-            description: "",
-            price: "",
-            stock: "",
-            imageUrl: ""
-        });
-
-        setEditingId(null);
-    };
-
     const addProduct = async () => {
         try {
-            await axios.post("http://localhost:8080/api/products/add", product);
+
+            await api.post("/api/products/add", product);
 
             alert("Product added successfully");
 
@@ -82,30 +64,17 @@ function Admin() {
             loadProducts();
 
         } catch (error) {
+
             console.log(error);
             alert("Failed to add product");
         }
     };
 
-    const editProduct = (item) => {
-        setEditingId(item.id);
-
-        setProduct({
-            name: item.name,
-            category: item.category,
-            description: item.description,
-            price: item.price,
-            stock: item.stock,
-            imageUrl: item.imageUrl
-        });
-
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
-
     const updateProduct = async () => {
         try {
-            await axios.put(
-                `https://smart-ecommerce-platform-zj7d.onrender.com/api/products/update/${editingId}`,
+
+            await api.put(
+                `/api/products/update/${editingId}`,
                 product
             );
 
@@ -115,6 +84,7 @@ function Admin() {
             loadProducts();
 
         } catch (error) {
+
             console.log(error);
             alert("Update failed");
         }
@@ -122,13 +92,15 @@ function Admin() {
 
     const deleteProduct = async (id) => {
         try {
-            await axios.delete(`https://smart-ecommerce-platform-zj7d.onrender.com/api/products/delete/${id}`)
+
+            await api.delete(`/api/products/delete/${id}`);
 
             alert("Product deleted");
 
             loadProducts();
 
         } catch (error) {
+
             console.log(error);
             alert("Delete failed");
         }
@@ -136,8 +108,9 @@ function Admin() {
 
     const updateOrderStatus = async (id, status) => {
         try {
-            await axios.put(
-                `https://smart-ecommerce-platform-zj7d.onrender.com/api/orders/status/${id}?status=${status}`
+
+            await api.put(
+                `/api/orders/status/${id}?status=${status}`
             );
 
             alert("Order status updated");
@@ -146,6 +119,7 @@ function Admin() {
             loadStats();
 
         } catch (error) {
+
             console.log(error);
             alert("Status update failed");
         }

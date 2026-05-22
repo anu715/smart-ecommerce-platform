@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { Link } from "react-router-dom";
 
 function Orders() {
@@ -10,8 +10,8 @@ function Orders() {
 
     useEffect(() => {
 
-        axios
-            .get(`https://smart-ecommerce-platform-zj7d.onrender.com/api/orders/${userEmail}`)
+        api
+            .get(`/api/orders/${userEmail}`)
             .then((response) => {
                 setOrders(response.data);
             });

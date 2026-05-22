@@ -1,13 +1,14 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleLogin = () => {
-        axios
-            .post("https://smart-ecommerce-platform-zj7d.onrender.com/api/auth/login", {
+
+        api
+            .post("/api/auth/login", {
                 email,
                 password
             })
@@ -38,6 +39,7 @@ function Login() {
                 }
             })
             .catch(() => {
+
                 alert("Invalid credentials");
             });
     };

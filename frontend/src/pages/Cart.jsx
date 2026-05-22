@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { Link } from "react-router-dom";
 
 function Cart() {
@@ -10,8 +10,8 @@ function Cart() {
 
     const loadCart = () => {
 
-        axios
-            .get(`https://smart-ecommerce-platform-zj7d.onrender.com/api/cart/${userEmail}`)
+        api
+            .get(`/api/cart/${userEmail}`)
             .then((response) => {
                 setCartItems(response.data);
             });
@@ -22,8 +22,8 @@ function Cart() {
     }, []);
 
     const removeItem = (id) => {
-        axios
-            .delete(`https://smart-ecommerce-platform-zj7d.onrender.com/api/cart/delete/${id}`)
+        api
+            .delete(`/api/cart/delete/${id}`)
             .then(() => {
                 loadCart();
             });
@@ -31,9 +31,9 @@ function Cart() {
 
     const placeOrder = () => {
 
-        axios
+        api
             .post(
-                `https://smart-ecommerce-platform-zj7d.onrender.com/api/payment/pay?email=${userEmail}&amount=${totalAmount}`
+                `/api/payment/pay?email=${userEmail}&amount=${totalAmount}`
             )
             .then((paymentResponse) => {
 
@@ -42,8 +42,8 @@ function Cart() {
                     paymentResponse.data.transactionId
                 );
 
-                return axios.post(
-                    `https://smart-ecommerce-platform-zj7d.onrender.com/api/orders/place?email=${userEmail}`
+                return api.post(
+                    `/api/orders/place?email=${userEmail}`
                 );
             })
             .then(() => {
@@ -66,7 +66,6 @@ function Cart() {
         (sum, item) => sum + item.price * item.quantity,
         0
     );
-
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#eef4ff] to-[#f8f9ff] p-8 pb-24">
             <div className="max-w-5xl mx-auto">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { Link } from "react-router-dom";
 
 function Products() {
@@ -8,8 +8,8 @@ function Products() {
     const [category, setCategory] = useState("");
 
     const loadProducts = () => {
-        axios
-            .get("https://smart-ecommerce-platform-zj7d.onrender.com/api/products/page?page=0&size=8")
+        api
+            .get("/api/products/page?page=0&size=8")
             .then((response) => {
                 setProducts(response.data.content);
             });
@@ -20,16 +20,16 @@ function Products() {
     }, []);
 
     const searchProducts = () => {
-        axios
-            .get(`https://smart-ecommerce-platform-zj7d.onrender.com/api/products/search?name=${searchName}`)
+        api
+            .get(`/api/products/search?name=${searchName}`)
             .then((response) => {
                 setProducts(response.data);
             });
     };
 
     const filterByCategory = () => {
-        axios
-            .get(`https://smart-ecommerce-platform-zj7d.onrender.com/api/products/category?category=${category}`)
+        api
+            .get(`/api/products/category?category=${category}`)
             .then((response) => {
                 setProducts(response.data);
             });
@@ -37,7 +37,7 @@ function Products() {
 
     const addToCart = async (product) => {
         try {
-            await axios.post("https://smart-ecommerce-platform-zj7d.onrender.com/api/cart/add", {
+            await api.post("/api/cart/add", {
                 userEmail: localStorage.getItem("email"),
                 productId: product.id,
                 productName: product.name,

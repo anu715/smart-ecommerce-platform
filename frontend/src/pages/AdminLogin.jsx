@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 function AdminLogin() {
 
@@ -8,9 +8,9 @@ function AdminLogin() {
 
     const handleAdminLogin = () => {
 
-        axios
+        api
             .post(
-                "https://smart-ecommerce-platform-zj7d.onrender.com/api/auth/login",
+                "/api/auth/login",
                 {
                     email,
                     password
