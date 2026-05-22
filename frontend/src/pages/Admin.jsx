@@ -3,6 +3,7 @@ import api from "../api";
 
 function Admin() {
 
+
     const [products, setProducts] = useState([]);
     const [stats, setStats] = useState({
         totalUsers: 0,
@@ -52,6 +53,43 @@ function Admin() {
         loadStats();
         loadRecentOrders();
     }, []);
+
+    const handleChange = (e) => {
+        setProduct({
+            ...product,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const resetForm = () => {
+        setProduct({
+            name: "",
+            category: "",
+            description: "",
+            price: "",
+            stock: "",
+            imageUrl: ""
+        });
+
+        setEditingId(null);
+    };
+
+    const editProduct = (item) => {
+        setEditingId(item.id);
+
+        setProduct({
+            name: item.name,
+            category: item.category,
+            description: item.description,
+            price: item.price,
+            stock: item.stock,
+            imageUrl: item.imageUrl
+        });
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+
 
     const addProduct = async () => {
         try {
