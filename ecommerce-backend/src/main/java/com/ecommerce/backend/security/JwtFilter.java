@@ -23,24 +23,52 @@ public class JwtFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
+        String path = request.getRequestURI();
+
+        if (path.startsWith("/api/auth")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        if (path.startsWith("/swagger-ui") || path.startsWith("/v3/api-docs")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String authHeader = request.getHeader("Authorization");
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
 
-            String token = authHeader.substring(7);
+        String token = authHeader.substring(7);
 
-            try {
+        try {
+            String email = jwtService.extractEmail(token);
+            String role = jwtService.extractRole(token);
 
-                String email = jwtService.extractEmail(token);
-
-                System.out.println("Authenticated User: " + email);
-
-            } catch (Exception e) {
-
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-
+            if (path.startsWith("/api/admin") && !role.equals("ADMIN")) {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 return;
             }
+
+            if (path.contains("/api/products/add")
+                    || path.contains("/api/products/update")
+                    || path.contains("/api/products/delete")) {
+
+                if (!role.equals("ADMIN")) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    return;
+                }
+            }
+
+            System.out.println("Authenticated User: " + email);
+            System.out.println("Role: " + role);
+
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
 
         filterChain.doFilter(request, response);

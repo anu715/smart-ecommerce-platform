@@ -29,13 +29,11 @@ public class AuthController {
                 user.getPassword()
         );
 
-        User existingUser =
-                authService.getUserByEmail(user.getEmail());
+        User existingUser = authService.getUserByEmail(user.getEmail());
 
         Map<String, String> response = new HashMap<>();
 
         response.put("token", token);
-
         response.put("role", existingUser.getRole());
 
         return response;

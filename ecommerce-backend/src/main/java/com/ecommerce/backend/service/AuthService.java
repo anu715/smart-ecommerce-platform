@@ -42,7 +42,7 @@ public class AuthService {
             return "Invalid credentials";
         }
 
-        return jwtService.generateToken(user.getEmail());
+        return jwtService.generateToken(user.getEmail(), user.getRole());
     }
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
