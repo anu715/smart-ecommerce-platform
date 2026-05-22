@@ -57,6 +57,28 @@ The application supports:
 
 ---
 
+---
+
+## Screenshots
+
+### Login Page
+![Login](screenshots/login.png)
+
+### Register Page
+![Register](screenshots/register.png)
+
+### Products Page
+![Products](screenshots/products.png)
+
+### Cart Page
+![Cart](screenshots/cart.png)
+
+### Admin Dashboard
+![Admin](screenshots/admin.png)
+
+### Swagger API
+![Swagger](screenshots/swagger.png)
+
 ## Features
 
 ### User Features
