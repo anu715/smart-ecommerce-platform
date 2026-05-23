@@ -13,52 +13,74 @@ function Register() {
             .post("/api/auth/register", {
                 name,
                 email,
-                password
+                password,
+                role: "USER"
             })
             .then(() => {
+
                 alert("Registration successful. Please login.");
+
+                window.location.href = "/login";
             })
-            .catch(() => {
+            .catch((error) => {
+
+                console.log(error);
+
                 alert("Registration failed");
             });
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="bg-white p-10 rounded-xl shadow-xl w-96">
 
-                <h1 className="text-3xl font-bold mb-6 text-center">
-                    Register
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#eef4ff] to-[#f8f9ff]">
+
+            <div className="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md">
+
+                <h1 className="text-4xl font-bold text-center text-[#00236f] mb-8">
+                    Create Account
                 </h1>
 
                 <input
-                    placeholder="Name"
-                    className="w-full border p-3 rounded-lg mb-4"
+                    type="text"
+                    placeholder="Full Name"
+                    className="w-full h-14 border rounded-2xl px-5 mb-5 outline-none"
                     onChange={(e) => setName(e.target.value)}
                 />
 
                 <input
                     type="email"
-                    placeholder="Email"
-                    className="w-full border p-3 rounded-lg mb-4"
+                    placeholder="Email Address"
+                    className="w-full h-14 border rounded-2xl px-5 mb-5 outline-none"
                     onChange={(e) => setEmail(e.target.value)}
                 />
 
                 <input
                     type="password"
                     placeholder="Password"
-                    className="w-full border p-3 rounded-lg mb-4"
+                    className="w-full h-14 border rounded-2xl px-5 mb-5 outline-none"
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
                 <button
                     onClick={handleRegister}
-                    className="w-full bg-black text-white py-3 rounded-lg"
+                    className="w-full bg-[#00236f] text-white h-14 rounded-2xl font-bold"
                 >
                     Register
                 </button>
 
+                <p className="text-center mt-6 text-gray-600">
+                    Already have an account?
+
+                    <button
+                        onClick={() => window.location.href = "/login"}
+                        className="text-[#00236f] font-bold ml-1 hover:underline"
+                    >
+                        Login
+                    </button>
+                </p>
+
             </div>
+
         </div>
     );
 }
