@@ -21,6 +21,12 @@ public class AuthService {
 
     public User register(User user) {
 
+        User existingUser = userRepository.findByEmail(user.getEmail());
+
+        if (existingUser != null) {
+            throw new RuntimeException("Email already exists");
+        }
+
         if (user.getRole() == null) {
             user.setRole("USER");
         }

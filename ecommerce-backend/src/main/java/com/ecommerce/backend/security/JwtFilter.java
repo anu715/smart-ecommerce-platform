@@ -35,6 +35,14 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
+        if (path.startsWith("/api/products/page")
+                || path.startsWith("/api/products/search")
+                || path.startsWith("/api/products/category")) {
+
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
