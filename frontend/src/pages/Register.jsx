@@ -18,9 +18,20 @@ function Register() {
             })
             .then(() => {
 
-                alert("Registration successful. Please login.");
+                return api.post("/api/auth/login", {
+                    email,
+                    password
+                });
+            })
+            .then((response) => {
 
-                window.location.href = "/login";
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("email", email);
+                localStorage.setItem("role", response.data.role);
+
+                alert("Account created successfully");
+
+                window.location.href = "/products";
             })
             .catch((error) => {
 
@@ -29,7 +40,6 @@ function Register() {
                 alert("Registration failed");
             });
     };
-
     return (
 
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#eef4ff] to-[#f8f9ff]">
